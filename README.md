@@ -1,2 +1,2 @@
 # club-website
-this is the repo for the club's website
+This is the WSU's Software Development Club's repository for the club's website
