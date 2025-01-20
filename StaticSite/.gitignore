@@ -1,0 +1,13 @@
+# Ignore build directories and files
+/build/
+/dist/
+/public/
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.log
+*.DS_Store
+
+# Ignore editor configuration files
+.vscode/
