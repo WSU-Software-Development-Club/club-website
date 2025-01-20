@@ -1,0 +1,150 @@
+/* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Color Variables */
+:root {
+  --crimson: #990000;
+  --gray: #666666;
+  --light-gray: #f2f2f2; /* Light Gray for backgrounds */
+}
+
+/* Header Styles */
+/* The header is styled with a crimson background and white text color for better visibility */
+header {
+  background-color: rgba(166,29,47,255);
+  color: #fff;
+  max-height: 11vh;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+
+.logo {
+  max-width: 90px;
+  max-height: 60px;
+  margin-right: 1em;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav li {
+  margin-right: 1em;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Main Content Styles */
+main {
+  padding: 2em;
+  background-color: var(--light-gray);
+}
+
+section {
+  margin-bottom: 2em;
+}
+
+section h2 {
+  margin-bottom: 0.5em;
+  color: var(--crimson);
+}
+
+section p,
+section ul {
+  margin-bottom: 1em;
+  color: var(--gray);
+}
+
+ul.social-media {
+  list-style: none;
+  display: flex;
+}
+
+ul.social-media li {
+  margin-right: 1em;
+}
+
+ul.social-media a {
+  color: var(--crimson);
+  text-decoration: none;
+}
+
+ul.social-media a:hover {
+  text-decoration: underline;
+}
+
+/* Footer Styles */
+footer {
+  background-color: rgba(166,29,47,255);
+  color: #fff;
+  text-align: center;
+  
+  max-height: 11vh;
+
+}
+
+.footer-logo {
+  max-width: 60px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    flex-direction: column;
+    margin-top: 1em;
+  }
+
+  nav li {
+    margin-right: 0;
+    margin-bottom: 0.5em;
+  }
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+  align-items: center;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid var(--gray);
+}
+
+.about-description {
+  margin-top: -8em;
+}
