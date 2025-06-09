@@ -85,19 +85,16 @@ function ProjectTile({ name, summary, description, repoUrl, completed }: Project
 
 async function FetchProjects() { 
     try {
-
-        console.log(import.meta.env.DATABASE_URL)
-
         const sql = neon(import.meta.env.VITE_DATABASE_URL); // create a sql instance connected to our database through its postrgres url
 
         const result = await sql`
-            SELECT id, name, summary, description, repo_url, (end_date IS NOT NULL) AS complete
+            SELECT project_id, name, summary, description, repo_url, (end_date IS NOT NULL) AS complete
             FROM Projects
             ORDER BY complete ASC, start_date DESC;
         `;
 
         const formattedData: Project[] = result.map(row => ({
-            id: row.id,
+            id: row.project_id,
             name: row.name,
             summary: row.summary,
             description: row.description,
