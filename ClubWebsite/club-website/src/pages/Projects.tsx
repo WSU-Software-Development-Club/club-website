@@ -16,16 +16,19 @@ interface Project {
 
 export default function Projects() {
     const [projects, setProjects] = useState<Project[]>();
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchProjects = async () => {
+            setLoading(true);
             let result = await FetchProjects();
             if(result.success) {
                 setProjects(result.projects);
             }
+            setLoading(false);
         };
         fetchProjects();
-    });
+    }, []);
 
     return(
         <div>
@@ -34,21 +37,29 @@ export default function Projects() {
 
             <main className='flex-grow mt-15'>
 
-                {/* Tile layout of clubs projects */}
+                {/* Tile layout of clubs projects */}   
+                {/* TODO: Add a loading animation while projects are being fetched */}   
                 <section className='flex justify-center px-4 mb-10'>
                     <div className='w-full max-w-6xl'>
-                        <div className='mt-12 grid grid-cols-1 gap-4 md:grid-cols-2'>
-                            {projects?.map((project, row) => (
-                                <ProjectTile 
-                                    key={project.id || row}
-                                    name={project.name}
-                                    summary={project.summary}
-                                    description={project.description}
-                                    repoUrl={project.repoUrl}
-                                    completed={project.completed}
-                                />
-                            ))}
-                        </div>
+                        {loading ? (
+                            <div className='text-center py-12'>
+                                <div className='inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-crimson border-r-transparent'/>
+                                <p className='mt-4'>Loading projects...</p>
+                            </div>
+                        ) : (
+                            <div className='mt-12 grid grid-cols-1 gap-4 md:grid-cols-2'>
+                                {projects?.map((project, row) => (
+                                    <ProjectTile 
+                                        key={project.id || row}
+                                        name={project.name}
+                                        summary={project.summary}
+                                        description={project.description}
+                                        repoUrl={project.repoUrl}
+                                        completed={project.completed}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </section>
             </main>
@@ -71,13 +82,15 @@ function ProjectTile({ name, summary, description, repoUrl, completed }: Project
                 
                 <p className='text-crimson'>{summary}</p>
                 <p className='text-black80 grow mt-4'>{description}</p>
-                <button 
-                    className='bg-black90 text-white hover:bg-black80 py-2 rounded-md cursor-pointer mt-4'
-                    onClick={() => window.open(repoUrl, '_blank')}
-                >
-                    <FaGithub size={23} className='inline-block mr-2'/>
-                    View GitHub Repository
-                </button>
+                {repoUrl && (
+                    <button 
+                        className='bg-black90 text-white hover:bg-black80 py-2 rounded-md cursor-pointer mt-4'
+                        onClick={() => window.open(repoUrl, '_blank')}
+                    >
+                        <FaGithub size={23} className='inline-block mr-2'/>
+                        View GitHub Repository
+                    </button>
+                )}
             </div>
         </Card>
     );
@@ -85,19 +98,16 @@ function ProjectTile({ name, summary, description, repoUrl, completed }: Project
 
 async function FetchProjects() { 
     try {
-
-        console.log(import.meta.env.DATABASE_URL)
-
         const sql = neon(import.meta.env.VITE_DATABASE_URL); // create a sql instance connected to our database through its postrgres url
 
         const result = await sql`
-            SELECT id, name, summary, description, repo_url, (end_date IS NOT NULL) AS complete
+            SELECT project_id, name, summary, description, repo_url, (end_date IS NOT NULL) AS complete
             FROM Projects
             ORDER BY complete ASC, start_date DESC;
         `;
 
         const formattedData: Project[] = result.map(row => ({
-            id: row.id,
+            id: row.project_id,
             name: row.name,
             summary: row.summary,
             description: row.description,
