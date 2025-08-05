@@ -96,7 +96,7 @@ function ProjectTile({ name, summary, description, repoUrl, dockerUrl, completed
                 {dockerUrl && (
                     <button 
                         className='bg-black90 text-white hover:bg-black80 py-2 rounded-md cursor-pointer mt-4'
-                        onClick={() => window.open(repoUrl, '_blank')}
+                        onClick={() => window.open(dockerUrl, '_blank')}
                     >
                         <FaDocker size={23} className='inline-block mr-2'/>
                         View on Docker Hub
