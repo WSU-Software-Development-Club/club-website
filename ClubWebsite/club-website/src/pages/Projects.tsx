@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { neon } from '@neondatabase/serverless';
-import { FaGithub } from 'react-icons/fa'; // used for all our media svg files
+import { FaGithub, FaDocker } from 'react-icons/fa'; // used for all our media svg files
 import Navbar from '@/components/ui/Navbar';
 import StatusIndicator from '@/components/ui/StatusIndicator';
 
@@ -11,6 +11,7 @@ interface Project {
     summary: string;
     description: string;
     repoUrl: string;
+    dockerUrl: string;
     completed: boolean;
 }
 
@@ -55,6 +56,7 @@ export default function Projects() {
                                         summary={project.summary}
                                         description={project.description}
                                         repoUrl={project.repoUrl}
+                                        dockerUrl={project.dockerUrl}
                                         completed={project.completed}
                                     />
                                 ))}
@@ -71,7 +73,7 @@ export default function Projects() {
     );
 }
 
-function ProjectTile({ name, summary, description, repoUrl, completed }: Project) {
+function ProjectTile({ name, summary, description, repoUrl, dockerUrl, completed }: Project) {
     return(
         <Card className='px-6'>
             <div className='h-full flex flex-col'>
@@ -91,6 +93,15 @@ function ProjectTile({ name, summary, description, repoUrl, completed }: Project
                         View GitHub Repository
                     </button>
                 )}
+                {dockerUrl && (
+                    <button 
+                        className='bg-black90 text-white hover:bg-black80 py-2 rounded-md cursor-pointer mt-4'
+                        onClick={() => window.open(repoUrl, '_blank')}
+                    >
+                        <FaDocker size={23} className='inline-block mr-2'/>
+                        View on Docker Hub
+                    </button>
+                )}
             </div>
         </Card>
     );
@@ -101,7 +112,7 @@ async function FetchProjects() {
         const sql = neon(import.meta.env.VITE_DATABASE_URL); // create a sql instance connected to our database through its postrgres url
 
         const result = await sql`
-            SELECT project_id, name, summary, description, repo_url, (end_date IS NOT NULL) AS complete
+            SELECT project_id, name, summary, description, repo_url, docker_url, (end_date IS NOT NULL) AS complete
             FROM Projects
             ORDER BY complete ASC, start_date DESC;
         `;
@@ -112,6 +123,7 @@ async function FetchProjects() {
             summary: row.summary,
             description: row.description,
             repoUrl: row.repo_url,
+            dockerUrl: row.docker_url,
             completed: row.complete
         }));
 
