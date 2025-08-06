@@ -1,5 +1,6 @@
-import Navbar from '@/components/ui/Navbar';
 import { Card, CardContent } from '@/components/ui/card';
+import Navbar from '@/components/ui/Navbar';
+import ClubFooter from '@/components/ui/ClubFooter';
 
 export default function About() {
 
@@ -32,9 +33,7 @@ export default function About() {
                 </section>
             </main>
 
-            <footer className='bg-black90 text-center'>
-                <p className='text-white'>© Software Development Club at WSU 2025</p>
-            </footer>
+            <ClubFooter />
         </div>  
     );
 }

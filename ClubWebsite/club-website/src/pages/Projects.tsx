@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { neon } from '@neondatabase/serverless';
 import { FaGithub, FaDocker } from 'react-icons/fa'; // used for all our media svg files
 import Navbar from '@/components/ui/Navbar';
+import ClubFooter from '@/components/ui/ClubFooter';
 import StatusIndicator from '@/components/ui/StatusIndicator';
 
 interface Project {
@@ -66,9 +67,7 @@ export default function Projects() {
                 </section>
             </main>
 
-            <footer className='bg-black90 text-center'>
-                <p className='text-white'>© Software Development Club at WSU 2025</p>
-            </footer>
+            <ClubFooter />
         </div>  
     );
 }

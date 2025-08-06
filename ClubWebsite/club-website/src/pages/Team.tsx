@@ -1,4 +1,5 @@
 import Navbar from '@/components/ui/Navbar';
+import ClubFooter from '@/components/ui/ClubFooter';
 import { Card } from '@/components/ui/card';
 import clubPhoto from '../assets/club_group_picture.jpg';
 import defualtPfp from '../assets/default_pfp.png';
@@ -48,9 +49,7 @@ export default function Team() {
                 </section>
             </main>
 
-            <footer className='bg-black90 text-center'>
-                <p className='text-white'>© Software Development Club at WSU 2025</p>
-            </footer>
+            <ClubFooter />
         </div>  
     );
 }

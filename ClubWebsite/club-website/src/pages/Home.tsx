@@ -1,6 +1,7 @@
 import { FaDiscord, FaGithub, FaInstagram } from 'react-icons/fa'; // used for all our media svg files
 import homepageBanner from '../assets/home_banner.jpeg';
 import Navbar from '@/components/ui/Navbar';
+import ClubFooter from '@/components/ui/ClubFooter';
 
 export default function Home() {
 
@@ -84,10 +85,7 @@ export default function Home() {
                 </section>
             </main>
             
-            <footer className='bg-black90 text-center'>
-                <p className='text-white text-md'>© Software Development Club at WSU 2025</p>
-                <p className='text-white text-sm'>A student-run organization at Washington State University</p>
-            </footer>
+            <ClubFooter />
         </div>
     );
 }
