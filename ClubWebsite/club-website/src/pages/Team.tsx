@@ -109,7 +109,8 @@ async function FetchTeamMembers() {
                 cp.title,
                 tm.picture_url
             FROM team tm 
-            JOIN club_positions cp ON tm.position_id = cp.position_id;
+            JOIN club_positions cp ON tm.position_id = cp.position_id
+            ORDER BY tm.position_id ASC;
         `;
 
         const formattedData: TeamMember[] = result.map(row => ({
