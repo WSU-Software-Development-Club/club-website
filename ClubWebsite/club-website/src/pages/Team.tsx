@@ -6,7 +6,6 @@ import { Card } from '@/components/ui/card';
 import clubPhoto from '../assets/club_group_picture.jpg';
 import defualtPfp from '../assets/default_pfp.png';
 
-
 interface TeamMember {
     id?: number;
     name: string;
@@ -19,7 +18,7 @@ export default function Team() {
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        const fetchProjects = async () => {
+        const fetchMembers = async () => {
             setLoading(true);
             let result = await FetchTeamMembers();
             if(result.success) {
@@ -27,7 +26,7 @@ export default function Team() {
             }
             setLoading(false);
         };
-        fetchProjects();
+        fetchMembers();
     }, []);
 
     return(
@@ -63,12 +62,12 @@ export default function Team() {
                 {loading ? (
                     <div className='text-center py-12'>
                         <div className='inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-crimson border-r-transparent'/>
-                        <p className='mt-4'>Loading projects...</p>
+                        <p className='mt-4'>Loading team members...</p>
                     </div>
                 ) : (
                     <section className='flex justify-center px-4'>
                         <div className='w-full max-w-6xl'>
-                            <div className="grid gap-10 grid-cols-[repeat(auto-fit,_minmax(255px,_1fr))]">
+                            <div className='grid gap-10 grid-cols-[repeat(auto-fit,_minmax(255px,_1fr))]'>
                                 {teamMembers?.map((member, row) => (
                                     <MemberProfile 
                                         key={member.id || row}
@@ -109,7 +108,8 @@ async function FetchTeamMembers() {
                 cp.title,
                 tm.picture_url
             FROM team tm 
-            JOIN club_positions cp ON tm.position_id = cp.position_id;
+            JOIN club_positions cp ON tm.position_id = cp.position_id
+            ORDER BY tm.position_id ASC;
         `;
 
         const formattedData: TeamMember[] = result.map(row => ({

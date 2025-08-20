@@ -39,8 +39,7 @@ export default function Projects() {
 
             <main className='flex-grow mt-15'>
 
-                {/* Tile layout of clubs projects */}   
-                {/* TODO: Add a loading animation while projects are being fetched */}   
+                {/* Tile layout of clubs projects */}    
                 <section className='flex justify-center px-4 mb-10'>
                     <div className='w-full max-w-6xl'>
                         {loading ? (

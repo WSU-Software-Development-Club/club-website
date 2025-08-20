@@ -80,6 +80,7 @@ export default function Home() {
                     </button>
                 </section>
 
+                {/* TODO: potential space to showcase images of projects / events or club sponsors */ }
                 <section className='py-16 px-6'>
 
                 </section>
