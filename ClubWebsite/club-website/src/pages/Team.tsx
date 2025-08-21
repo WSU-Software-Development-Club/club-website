@@ -19,12 +19,35 @@ export default function Team() {
 
     useEffect(() => {
         const fetchMembers = async () => {
+            // check if data is cached in the browseer before querying the db
+            const cachedData = localStorage.getItem('teamMembers');
+            const cacheTimestamp = localStorage.getItem('teamMembersTimestamp');
+            
+            const CacheDuration = 600000; // 10 minutes
+            const now = Date.now();
+
+            if(cachedData && cacheTimestamp) {
+                const isExpired = now - parseInt(cacheTimestamp) > CacheDuration; // check previous cache age
+
+                if(!isExpired) {
+                    setTeamMembers(JSON.parse(cachedData));
+                    setLoading(false);
+                    return;
+                }
+            }
+
             setLoading(true);
+
+            // no cache or expired so retrieve from db and store in browser
             let result = await FetchTeamMembers();
             if(result.success) {
                 setTeamMembers(result.teamMembers);
+                setLoading(false);
+
+                // cache our retrieved data and set the cache timestamp
+                localStorage.setItem('teamMembers', JSON.stringify(result.teamMembers));
+                localStorage.setItem('teamMembersTimestamp', now.toString());
             }
-            setLoading(false);
         };
         fetchMembers();
     }, []);
