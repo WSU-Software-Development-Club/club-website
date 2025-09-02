@@ -1,6 +1,7 @@
 import { FaDiscord, FaGithub, FaInstagram } from 'react-icons/fa'; // used for all our media svg files
 import homepageBanner from '../assets/home_banner.jpeg';
 import Navbar from '@/components/ui/Navbar';
+import ClubFooter from '@/components/ui/ClubFooter';
 
 export default function Home() {
 
@@ -37,7 +38,7 @@ export default function Home() {
                             student organization focused on developing software applications in a 
                             collaborative environment that mirros real-world development teams. We explore 
                             modern software technologies in our weekly meetings while planning and building
-                            semester-long software application, equipping students with industry required 
+                            semester-long software applications, equipping students with industry required 
                             skills and knowlegde. Our weekly meetings are open to everyone, regardless of 
                             major or experience!
                         </p>
@@ -79,15 +80,13 @@ export default function Home() {
                     </button>
                 </section>
 
+                {/* TODO: potential space to showcase images of projects / events or club sponsors */ }
                 <section className='py-16 px-6'>
 
                 </section>
             </main>
             
-            <footer className='bg-black90 text-center'>
-                <p className='text-white text-md'>© Software Development Club at WSU 2025</p>
-                <p className='text-white text-sm'>A student-run organization at Washington State University</p>
-            </footer>
+            <ClubFooter />
         </div>
     );
 }
