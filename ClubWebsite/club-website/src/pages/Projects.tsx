@@ -22,12 +22,35 @@ export default function Projects() {
 
     useEffect(() => {
         const fetchProjects = async () => {
+            // check if data is cached in the browseer before querying the db
+            const cachedData = localStorage.getItem('projects');
+            const cacheTimestamp = localStorage.getItem('projectsTimestamp');
+
+            const CacheDuration = 600000; // 10 minutes
+            const now = Date.now();
+
+            if(cachedData && cacheTimestamp) {
+                const isExpired = now - parseInt(cacheTimestamp) > CacheDuration; // check previous cache age
+
+                if(!isExpired) {
+                    setProjects(JSON.parse(cachedData));
+                    setLoading(false);
+                    return;
+                }
+            }
+
             setLoading(true);
+
+            // no cache or expired so retrieve from db and store in browser
             let result = await FetchProjects();
             if(result.success) {
                 setProjects(result.projects);
+                setLoading(false);
+
+                // cache our retrieved data and set the cache timestamp
+                localStorage.setItem('projects', JSON.stringify(result.projects));
+                localStorage.setItem('projectsTimestamp', now.toString());
             }
-            setLoading(false);
         };
         fetchProjects();
     }, []);
