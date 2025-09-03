@@ -90,7 +90,7 @@ export default function Team() {
                 ) : (
                     <section className='flex justify-center px-4'>
                         <div className='w-full max-w-6xl'>
-                            <div className='grid gap-10 grid-cols-[repeat(auto-fit,_minmax(255px,_1fr))]'>
+                            <div className='grid gap-10 grid-cols-[repeat(auto-fit,_minmax(255px,_max-content))] justify-center'>
                                 {teamMembers?.map((member, row) => (
                                     <MemberProfile 
                                         key={member.id || row}
@@ -112,7 +112,7 @@ export default function Team() {
 
 function MemberProfile({ name, position, pictureUrl }: TeamMember) {
     return(
-        <Card className='shadow flex flex-col items-center max-w-[255px] gap-0 mb-5'>
+        <Card className='items-center max-w-[255px] gap-0 mb-5 transition-transform duration-150 ease-in-out hover:scale-101 hover:shadow-md'>
             <img src={pictureUrl || defualtPfp} className='w-36 h-36 rounded-full object-cover mb-6' />   
             <h2 className='font-bold text-2xl text-gray-800'>{name}</h2>
             <p className='text-lg text-gray-700'>{position}</p>
