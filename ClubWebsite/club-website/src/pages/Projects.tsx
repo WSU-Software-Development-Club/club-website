@@ -96,7 +96,7 @@ export default function Projects() {
 
 function ProjectTile({ name, summary, description, repoUrl, dockerUrl, completed }: Project) {
     return(
-        <Card className='px-6 transition-transform duration-150 ease-in-out hover:scale-101'>
+        <Card className='px-6 transition-transform duration-150 ease-in-out hover:scale-101 hover:shadow-md'>
             <div className='h-full flex flex-col'>
                 <div className='flex items-center justify-between mb-1'>
                     <h2 className='text-xl text-black80 font-bold'>{name}</h2>
