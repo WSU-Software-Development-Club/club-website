@@ -1,4 +1,3 @@
-import { FaDiscord } from 'react-icons/fa'; // used for all our media svg files
 import { Card, CardContent } from '@/components/ui/card';
 import Navbar from '@/components/ui/Navbar';
 import ClubFooter from '@/components/ui/ClubFooter';
