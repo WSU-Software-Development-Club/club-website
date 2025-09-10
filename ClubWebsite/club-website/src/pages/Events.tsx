@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { neon } from '@neondatabase/serverless';
-import { CiCalendar, CiLocationOn, CiClock1 } from "react-icons/ci"; // used for all our media svg files
-import { cn } from "@/lib/utils";
+import { CiCalendar, CiLocationOn, CiClock1 } from 'react-icons/ci'; // used for all our media svg files
+import { cn } from '@/lib/utils';
 import Navbar from '@/components/ui/Navbar';
 import ClubFooter from '@/components/ui/ClubFooter';
 
@@ -137,29 +137,29 @@ export default function Events() {
 
 function EventTile({ title, date, start_time, end_time, location, details_url, className }: Event) {
     return(
-        <Card className={cn('px-6 py-3 my-4 transition-transform duration-150 ease-in-out hover:scale-101', className)}>
+        <Card className={cn('px-6 py-3 my-4 transition-transform duration-150 ease-in-out hover:scale-101 hover:shadow-md', className)}>
             <div className='h-full flex flex-col'>
                 <div className='flex items-center justify-between mb-1'>
                     <h2 className='text-xl text-black80 font-bold'>{title}</h2>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                     <CiCalendar/>
-                    <span className="text-black80">
+                    <span className='text-black80'>
                         {date}
                     </span>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                     <CiClock1/>
-                    <span className="text-black80">
+                    <span className='text-black80'>
                         {start_time}{end_time ? ` - ${end_time}` : ''}
                     </span>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                     <CiLocationOn/>
-                    <span className="text-black80">
+                    <span className='text-black80'>
                         {location}
                     </span>
                 </div>

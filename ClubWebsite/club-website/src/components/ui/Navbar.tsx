@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import TypingEffect from './TypedEffect';
 import softwareDevelopmentLogo from '../../assets/software-development-logo.png';
 
-const navItems = ['About', 'Team', 'Projects', 'Events', 'Join Us'];
+const navItems = ['Projects', 'Events', 'Team', 'Join Us'];
 
 // Complete functionality of navbar with desktop / mobile views and functionality
 export default function Navbar() {
