@@ -23,7 +23,7 @@ export default function Team() {
             const cachedData = localStorage.getItem('teamMembers');
             const cacheTimestamp = localStorage.getItem('teamMembersTimestamp');
             
-            const CacheDuration = 600000; // 10 minutes
+            const CacheDuration = 1800000; // 30 minutes
             const now = Date.now();
 
             if(cachedData && cacheTimestamp) {

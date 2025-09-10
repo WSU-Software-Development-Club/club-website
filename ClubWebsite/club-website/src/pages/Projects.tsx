@@ -26,7 +26,7 @@ export default function Projects() {
             const cachedData = localStorage.getItem('projects');
             const cacheTimestamp = localStorage.getItem('projectsTimestamp');
 
-            const CacheDuration = 600000; // 10 minutes
+            const CacheDuration = 1800000; // 30 minutes
             const now = Date.now();
 
             if(cachedData && cacheTimestamp) {

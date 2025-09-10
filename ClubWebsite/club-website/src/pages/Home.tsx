@@ -79,11 +79,6 @@ export default function Home() {
                         Join our Mailing List
                     </button>
                 </section>
-
-                {/* TODO: potential space to showcase images of projects / events or club sponsors */ }
-                <section className='py-16 px-6'>
-
-                </section>
             </main>
             
             <ClubFooter />
