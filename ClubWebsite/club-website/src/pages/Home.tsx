@@ -36,11 +36,10 @@ export default function Home() {
                         <p className='text-lg text-center text-black80'>
                             The Software Development Club at Washington State University is a growing 
                             student organization focused on developing software applications in a 
-                            collaborative environment that mirros real-world development teams. We explore 
-                            modern software technologies in our weekly meetings while planning and building
-                            semester-long software applications, equipping students with industry required 
-                            skills and knowlegde. Our weekly meetings are open to everyone, regardless of 
-                            major or experience!
+                            collaborative environment that mirros real-world development teams. Our goal
+                            is to equip students with relevant tools, technologies, and skills widely used 
+                            in the software industry through weekly workshops and large-scale team projects.
+                            Our weekly meetings are open to everyone, regardless of major or experience!
                         </p>
                     </div>
                     
