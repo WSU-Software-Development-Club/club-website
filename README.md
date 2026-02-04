@@ -1,5 +1,25 @@
-# Club Website  
-This is the WSU Software Development Club's repository for the Club's Website for Washington State University (WSU). We will be adhering to the [WSU brand guidelines](https://brand.wsu.edu/) for all UI elements.
+# WSU Software Development Club Website
+
+The official club website for the Software Development Club at Washington State University. This site enables our club to showcase our projects, announce upcoming events, highlight our team members, and provide information about our club for prospective members looking to join our community!
+
+## Tech Stack
+
+- **React.js** - UI Llibrary
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Styling
+- **shadcn/ui** - UI components
+- **Neon Serverless PostgreSQL** - Backend relational database
+- **Vercel** - Deployment platform
+
+## Prerequisites
+
+- **Node.js 22.13.1**
+  - If you have [nvm](https://github.com/nvm-sh/nvm) installed, run `nvm use` to automatically switch to the correct version
+
+## Design Guidelines
+
+This project follows the [WSU brand guidelines](https://brand.wsu.edu/) for colors and visual elements.
 
 ## How to Contribute
 
@@ -11,9 +31,11 @@ This is the WSU Software Development Club's repository for the Club's Website fo
      ```
 2. **Install All Dependencies**
    After navigating into the cloned repository, run:
+
    ```bash
    npm install
    ```
+
    What This Does:
 
    Reads package.json: Fetches all the dependencies and devDependencies listed.
@@ -29,7 +51,6 @@ This is the WSU Software Development Club's repository for the Club's Website fo
    ```bash
    npm start
    ```
-   
 4. **Checkout a Branch:**
    - Ensure you're working on one of your own branches or a branch that you've been assigned to.
    - To switch to a branch:
