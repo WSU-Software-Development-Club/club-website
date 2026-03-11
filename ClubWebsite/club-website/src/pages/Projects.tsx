@@ -1,156 +1,176 @@
-import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
-import { neon } from '@neondatabase/serverless';
-import { FaGithub, FaDocker } from 'react-icons/fa'; // used for all our media svg files
-import Navbar from '@/components/ui/Navbar';
-import ClubFooter from '@/components/ui/ClubFooter';
-import StatusIndicator from '@/components/ui/StatusIndicator';
+import { useState, useEffect } from "react";
+import { Card } from "@/components/ui/card";
+import { neon } from "@neondatabase/serverless";
+import { RxExternalLink } from "react-icons/rx";
+import { FaGithub, FaDocker } from "react-icons/fa"; // used for all our media svg files
+import Navbar from "@/components/ui/Navbar";
+import ClubFooter from "@/components/ui/ClubFooter";
+import StatusIndicator from "@/components/ui/StatusIndicator";
 
 interface Project {
-    id?: number;
-    name: string;
-    summary: string;
-    description: string;
-    repoUrl: string;
-    dockerUrl: string;
-    completed: boolean;
+  id?: number;
+  name: string;
+  summary: string;
+  description: string;
+  repoUrl: string;
+  dockerUrl: string;
+  websiteUrl: string;
+  completed: boolean;
 }
 
 export default function Projects() {
-    const [projects, setProjects] = useState<Project[]>();
-    const [loading, setLoading] = useState<boolean>(false);
+  const [projects, setProjects] = useState<Project[]>();
+  const [loading, setLoading] = useState<boolean>(false);
 
-    useEffect(() => {
-        const fetchProjects = async () => {
-            // check if data is cached in the browseer before querying the db
-            const cachedData = localStorage.getItem('projects');
-            const cacheTimestamp = localStorage.getItem('projectsTimestamp');
+  useEffect(() => {
+    const fetchProjects = async () => {
+      // check if data is cached in the browseer before querying the db
+      const cachedData = localStorage.getItem("projects");
+      const cacheTimestamp = localStorage.getItem("projectsTimestamp");
 
-            const CacheDuration = 1800000; // 30 minutes
-            const now = Date.now();
+      const CacheDuration = 1800000; // 30 minutes
+      const now = Date.now();
 
-            if(cachedData && cacheTimestamp) {
-                const isExpired = now - parseInt(cacheTimestamp) > CacheDuration; // check previous cache age
+      if (cachedData && cacheTimestamp) {
+        const isExpired = now - parseInt(cacheTimestamp) > CacheDuration; // check previous cache age
 
-                if(!isExpired) {
-                    setProjects(JSON.parse(cachedData));
-                    setLoading(false);
-                    return;
-                }
-            }
+        if (!isExpired) {
+          setProjects(JSON.parse(cachedData));
+          setLoading(false);
+          return;
+        }
+      }
 
-            setLoading(true);
+      setLoading(true);
 
-            // no cache or expired so retrieve from db and store in browser
-            let result = await FetchProjects();
-            if(result.success) {
-                setProjects(result.projects);
-                setLoading(false);
+      // no cache or expired so retrieve from db and store in browser
+      let result = await FetchProjects();
+      if (result.success) {
+        setProjects(result.projects);
+        setLoading(false);
 
-                // cache our retrieved data and set the cache timestamp
-                localStorage.setItem('projects', JSON.stringify(result.projects));
-                localStorage.setItem('projectsTimestamp', now.toString());
-            }
-        };
-        fetchProjects();
-    }, []);
+        // cache our retrieved data and set the cache timestamp
+        localStorage.setItem("projects", JSON.stringify(result.projects));
+        localStorage.setItem("projectsTimestamp", now.toString());
+      }
+    };
+    fetchProjects();
+  }, []);
 
-    return(
-        <div>
-            {/* Navigation bar at top */}
-            <Navbar/>
+  return (
+    <div>
+      {/* Navigation bar at top */}
+      <Navbar />
 
-            <main className='flex-grow mt-15'>
+      <main className="flex-grow mt-15">
+        {/* Tile layout of clubs projects */}
+        <section className="flex justify-center px-4 mb-10">
+          <div className="w-full max-w-6xl">
+            {loading ? (
+              <div className="text-center py-12">
+                <div className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-crimson border-r-transparent" />
+                <p className="mt-4">Loading projects...</p>
+              </div>
+            ) : (
+              <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
+                {projects?.map((project, row) => (
+                  <ProjectTile
+                    key={project.id || row}
+                    name={project.name}
+                    summary={project.summary}
+                    description={project.description}
+                    repoUrl={project.repoUrl}
+                    dockerUrl={project.dockerUrl}
+                    websiteUrl={project.websiteUrl}
+                    completed={project.completed}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      </main>
 
-                {/* Tile layout of clubs projects */}    
-                <section className='flex justify-center px-4 mb-10'>
-                    <div className='w-full max-w-6xl'>
-                        {loading ? (
-                            <div className='text-center py-12'>
-                                <div className='inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-crimson border-r-transparent'/>
-                                <p className='mt-4'>Loading projects...</p>
-                            </div>
-                        ) : (
-                            <div className='mt-12 grid grid-cols-1 gap-4 md:grid-cols-2'>
-                                {projects?.map((project, row) => (
-                                    <ProjectTile 
-                                        key={project.id || row}
-                                        name={project.name}
-                                        summary={project.summary}
-                                        description={project.description}
-                                        repoUrl={project.repoUrl}
-                                        dockerUrl={project.dockerUrl}
-                                        completed={project.completed}
-                                    />
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                </section>
-            </main>
-
-            <ClubFooter />
-        </div>  
-    );
+      <ClubFooter />
+    </div>
+  );
 }
 
-function ProjectTile({ name, summary, description, repoUrl, dockerUrl, completed }: Project) {
-    return(
-        <Card className='px-6 transition-transform duration-150 ease-in-out hover:scale-101 hover:shadow-md'>
-            <div className='h-full flex flex-col'>
-                <div className='flex items-center justify-between mb-1'>
-                    <h2 className='text-xl text-black80 font-bold'>{name}</h2>
-                    <StatusIndicator completed={completed}/>
-                </div>
-                
-                <p className='text-crimson'>{summary}</p>
-                <p className='text-black80 grow mt-4'>{description}</p>
-                {repoUrl && (
-                    <button 
-                        className='bg-black90 text-white hover:bg-black80 py-2 rounded-md cursor-pointer mt-4'
-                        onClick={() => window.open(repoUrl, '_blank')}
-                    >
-                        <FaGithub size={23} className='inline-block mr-2'/>
-                        View GitHub Repository
-                    </button>
-                )}
-                {dockerUrl && (
-                    <button 
-                        className='bg-black90 text-white hover:bg-black80 py-2 rounded-md cursor-pointer mt-4'
-                        onClick={() => window.open(dockerUrl, '_blank')}
-                    >
-                        <FaDocker size={23} className='inline-block mr-2'/>
-                        View on Docker Hub
-                    </button>
-                )}
-            </div>
-        </Card>
-    );
+function ProjectTile({
+  name,
+  summary,
+  description,
+  repoUrl,
+  dockerUrl,
+  websiteUrl,
+  completed,
+}: Project) {
+  return (
+    <Card className="px-6 transition-transform duration-150 ease-in-out hover:scale-101 hover:shadow-md">
+      <div className="h-full flex flex-col">
+        <div className="flex items-center justify-between mb-1">
+          <h2 className="text-xl text-black80 font-bold">{name}</h2>
+          <StatusIndicator completed={completed} />
+        </div>
+
+        <p className="text-crimson">{summary}</p>
+        <p className="text-black80 grow mt-4">{description}</p>
+        {websiteUrl && (
+          <button
+            className="bg-black90 text-white hover:bg-black80 py-2 rounded-md cursor-pointer mt-4"
+            onClick={() => window.open(websiteUrl, "_blank")}
+          >
+            <RxExternalLink size={23} className="inline-block mr-2" />
+            View Website
+          </button>
+        )}
+        {repoUrl && (
+          <button
+            className="bg-black90 text-white hover:bg-black80 py-2 rounded-md cursor-pointer mt-4"
+            onClick={() => window.open(repoUrl, "_blank")}
+          >
+            <FaGithub size={23} className="inline-block mr-2" />
+            View GitHub Repository
+          </button>
+        )}
+        {dockerUrl && (
+          <button
+            className="bg-black90 text-white hover:bg-black80 py-2 rounded-md cursor-pointer mt-4"
+            onClick={() => window.open(dockerUrl, "_blank")}
+          >
+            <FaDocker size={23} className="inline-block mr-2" />
+            View on Docker Hub
+          </button>
+        )}
+      </div>
+    </Card>
+  );
 }
 
-async function FetchProjects() { 
-    try {
-        const sql = neon(import.meta.env.VITE_DATABASE_URL); // create a sql instance connected to our database through its postrgres url
+async function FetchProjects() {
+  try {
+    const sql = neon(import.meta.env.VITE_DATABASE_URL); // create a sql instance connected to our database through its postrgres url
 
-        const result = await sql`
-            SELECT project_id, name, summary, description, repo_url, docker_url, (end_date IS NOT NULL) AS complete
+    const result = await sql`
+            SELECT project_id, name, summary, description, repo_url, docker_url, website_url, (end_date IS NOT NULL) AS complete
             FROM Projects
             ORDER BY complete ASC, start_date DESC;
         `;
 
-        const formattedData: Project[] = result.map(row => ({
-            id: row.project_id,
-            name: row.name,
-            summary: row.summary,
-            description: row.description,
-            repoUrl: row.repo_url,
-            dockerUrl: row.docker_url,
-            completed: row.complete
-        }));
+    const formattedData: Project[] = result.map((row) => ({
+      id: row.project_id,
+      name: row.name,
+      summary: row.summary,
+      description: row.description,
+      repoUrl: row.repo_url,
+      dockerUrl: row.docker_url,
+      websiteUrl: row.website_url,
+      completed: row.complete,
+    }));
 
-        return {success: true, projects: formattedData};
-    } catch(error) {
-        console.error('Error fetching projects from the database:', error);
-        return {success: false, projects: []};
-    }
+    return { success: true, projects: formattedData };
+  } catch (error) {
+    console.error("Error fetching projects from the database:", error);
+    return { success: false, projects: [] };
+  }
 }
