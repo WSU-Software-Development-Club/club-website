@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
-import { neon } from "@neondatabase/serverless";
 import { RxExternalLink } from "react-icons/rx";
 import { FaGithub, FaDocker } from "react-icons/fa"; // used for all our media svg files
 import Navbar from "@/components/ui/Navbar";
@@ -24,35 +23,12 @@ export default function Projects() {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      // check if data is cached in the browseer before querying the db
-      const cachedData = localStorage.getItem("projects");
-      const cacheTimestamp = localStorage.getItem("projectsTimestamp");
-
-      const CacheDuration = 1800000; // 30 minutes
-      const now = Date.now();
-
-      if (cachedData && cacheTimestamp) {
-        const isExpired = now - parseInt(cacheTimestamp) > CacheDuration; // check previous cache age
-
-        if (!isExpired) {
-          setProjects(JSON.parse(cachedData));
-          setLoading(false);
-          return;
-        }
-      }
-
       setLoading(true);
-
-      // no cache or expired so retrieve from db and store in browser
-      let result = await FetchProjects();
+      const result = await FetchProjects();
       if (result.success) {
         setProjects(result.projects);
-        setLoading(false);
-
-        // cache our retrieved data and set the cache timestamp
-        localStorage.setItem("projects", JSON.stringify(result.projects));
-        localStorage.setItem("projectsTimestamp", now.toString());
       }
+      setLoading(false);
     };
     fetchProjects();
   }, []);
@@ -149,15 +125,11 @@ function ProjectTile({
 
 async function FetchProjects() {
   try {
-    const sql = neon(import.meta.env.VITE_DATABASE_URL); // create a sql instance connected to our database through its postrgres url
+    const res = await fetch("/api/projects");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const result = await res.json();
 
-    const result = await sql`
-            SELECT project_id, name, summary, description, repo_url, docker_url, website_url, (end_date IS NOT NULL) AS complete
-            FROM Projects
-            ORDER BY complete ASC, start_date DESC;
-        `;
-
-    const formattedData: Project[] = result.map((row) => ({
+    const formattedData: Project[] = result.map((row: any) => ({
       id: row.project_id,
       name: row.name,
       summary: row.summary,
@@ -170,7 +142,7 @@ async function FetchProjects() {
 
     return { success: true, projects: formattedData };
   } catch (error) {
-    console.error("Error fetching projects from the database:", error);
+    console.error("Error fetching projects:", error);
     return { success: false, projects: [] };
   }
 }
