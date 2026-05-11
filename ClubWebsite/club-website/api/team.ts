@@ -7,11 +7,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         SELECT 
             tm.member_id,
             CONCAT(tm.first_name, ' ', tm.last_name) name,
-            cp.title,
-            tm.picture_url
+            tm.position,
+            tm.picture_url,
+            tm.linkedin_url,
+            tm.github_url
         FROM team tm 
-        JOIN club_positions cp ON tm.position_id = cp.position_id
-        ORDER BY tm.position_id ASC;
+        ORDER BY tm.position_rank ASC;
     `;
   res.setHeader("Cache-Control", "s-maxage=1200, stale-while-revalidate");
   res.json(data);
