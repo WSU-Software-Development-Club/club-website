@@ -4,7 +4,7 @@ import ClubFooter from "@/components/ui/ClubFooter";
 
 export default function JoinUs() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
 
       <main className="flex-grow mt-25">
