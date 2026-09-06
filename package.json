@@ -7,7 +7,9 @@
     "dev": "concurrently \"tsx watch server.ts\" \"vite\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
@@ -38,6 +40,7 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "express": "^5.2.1",
     "globals": "^16.0.0",
+    "prettier": "^3.9.6",
     "tsx": "^4.21.0",
     "tw-animate-css": "^1.2.9",
     "typescript": "~5.7.2",
@@ -45,5 +48,8 @@
     "vite": "^6.3.1"
   },
   "description": "The official club website for the Software Development Club at Washington State University.",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.13"
+  }
 }

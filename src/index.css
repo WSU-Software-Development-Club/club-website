@@ -121,7 +121,8 @@
 
 @layer utilities {
   @keyframes blink {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
@@ -134,13 +135,13 @@
 }
 
 @theme {
-  --color-crimson: #A60F2D;
-  --color-wsu_red: #CA1237;
-  --color-gray: #4D4D4D;
-  --color-black80: #333333; 
+  --color-crimson: #a60f2d;
+  --color-wsu_red: #ca1237;
+  --color-gray: #4d4d4d;
+  --color-black80: #333333;
   --color-black90: #1a1a1a;
-  --color-autumn: #FF6727;
-  --color-goldfinch: #F3E700;
-  --color-pacificsky: #5BC3F5;
-  --color-midnight: #002D61;
+  --color-autumn: #ff6727;
+  --color-goldfinch: #f3e700;
+  --color-pacificsky: #5bc3f5;
+  --color-midnight: #002d61;
 }

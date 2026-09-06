@@ -29,8 +29,9 @@
    ```bash
    git push origin your-branch-name
    ```
-4. Before requesting review, make sure the build and lint pass:
+4. Before requesting review, make sure formatting, lint, and the build pass (CI checks all three):
    ```bash
-   npm run build
+   npm run format
    npm run lint
+   npm run build
    ```

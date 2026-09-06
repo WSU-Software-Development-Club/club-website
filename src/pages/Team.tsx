@@ -2,17 +2,18 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/ui/Navbar";
 import ClubFooter from "@/components/ui/ClubFooter";
 import { Card } from "@/components/ui/card";
-import clubPhoto from "../assets/club_group_picture.jpg";
+import clubPhoto from "../assets/club_group_picture.webp";
 import defualtPfp from "../assets/default_pfp.png";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 
+import type { TeamRow } from "../../api/_lib/queries";
 interface TeamMember {
   id?: number;
   name: string;
   position: string;
-  pictureUrl: string;
-  linkedinUrl: string;
-  githubUrl: string;
+  pictureUrl: string | null;
+  linkedinUrl: string | null;
+  githubUrl: string | null;
 }
 
 export default function Team() {
@@ -42,11 +43,7 @@ export default function Team() {
             <div className="w-full max-w-6xl">
               <Card className="shadow-md p-2">
                 <div className="w-full rounded-md overflow-hidden">
-                  <img
-                    src={clubPhoto}
-                    alt="Group Picture"
-                    className="w-full h-auto rounded-md"
-                  />
+                  <img src={clubPhoto} alt="Group Picture" className="w-full h-auto rounded-md" />
                 </div>
               </Card>
             </div>
@@ -91,36 +88,21 @@ export default function Team() {
   );
 }
 
-function MemberProfile({
-  name,
-  position,
-  pictureUrl,
-  linkedinUrl,
-  githubUrl,
-}: TeamMember) {
+function MemberProfile({ name, position, pictureUrl, linkedinUrl, githubUrl }: TeamMember) {
   return (
     <Card className="items-center max-w-[255px] gap-0 mb-5 transition-transform duration-150 ease-in-out hover:scale-101 hover:shadow-md">
-      <img
-        src={pictureUrl || defualtPfp}
-        className="w-36 h-36 rounded-full object-cover mb-6"
-      />
+      <img src={pictureUrl || defualtPfp} className="w-36 h-36 rounded-full object-cover mb-6" />
       <h2 className="font-bold text-2xl text-gray-800">{name}</h2>
       <p className="text-lg text-gray-700">{position}</p>
       <div className="flex gap-3 mt-2">
         {linkedinUrl && (
           <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-            <FaLinkedin
-              size={26}
-              className="text-black80 hover:text-crimson transition-colors"
-            />
+            <FaLinkedin size={26} className="text-black80 hover:text-crimson transition-colors" />
           </a>
         )}
         {githubUrl && (
           <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-            <FaGithub
-              size={26}
-              className="text-black80 hover:text-crimson transition-colors"
-            />
+            <FaGithub size={26} className="text-black80 hover:text-crimson transition-colors" />
           </a>
         )}
       </div>
@@ -132,9 +114,9 @@ async function FetchTeamMembers() {
   try {
     const res = await fetch("/api/team");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const result = await res.json();
+    const result: TeamRow[] = await res.json();
 
-    const formattedData: TeamMember[] = result.map((row: any) => ({
+    const formattedData: TeamMember[] = result.map((row) => ({
       id: row.member_id,
       name: row.name,
       position: row.position,

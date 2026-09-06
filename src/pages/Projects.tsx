@@ -6,14 +6,15 @@ import Navbar from "@/components/ui/Navbar";
 import ClubFooter from "@/components/ui/ClubFooter";
 import StatusIndicator from "@/components/ui/StatusIndicator";
 
+import type { ProjectRow } from "../../api/_lib/queries";
 interface Project {
   id?: number;
   name: string;
   summary: string;
   description: string;
-  repoUrl: string;
-  dockerUrl: string;
-  websiteUrl: string;
+  repoUrl: string | null;
+  dockerUrl: string | null;
+  websiteUrl: string | null;
   completed: boolean;
 }
 
@@ -127,9 +128,9 @@ async function FetchProjects() {
   try {
     const res = await fetch("/api/projects");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const result = await res.json();
+    const result: ProjectRow[] = await res.json();
 
-    const formattedData: Project[] = result.map((row: any) => ({
+    const formattedData: Project[] = result.map((row) => ({
       id: row.project_id,
       name: row.name,
       summary: row.summary,

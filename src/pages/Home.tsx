@@ -1,11 +1,10 @@
 import { FaDiscord, FaGithub, FaInstagram } from "react-icons/fa"; // used for all our media svg files
-import homepageBanner from "../assets/home_banner.jpeg";
+import homepageBanner from "../assets/home_banner.webp";
 import Navbar from "@/components/ui/Navbar";
 import ClubFooter from "@/components/ui/ClubFooter";
 
 export default function Home() {
-  const mailchimpUrl =
-    "https://mailchi.mp/554b66026425/subscribe-wsu-sdc-newsletter";
+  const mailchimpUrl = "https://mailchi.mp/554b66026425/subscribe-wsu-sdc-newsletter";
 
   const openNewsletterUrl = () => {
     window.open(mailchimpUrl, "_blank", "noopener,noreferrer");
@@ -39,14 +38,12 @@ export default function Home() {
               Connecting students with real-world software experience
             </h1>
             <p className="text-lg text-center text-black80">
-              The Software Development Club at Washington State University is a
-              growing student organization focused on developing software
-              applications in a collaborative environment that mirros real-world
-              development teams. Our goal is to equip students with relevant
-              tools, technologies, and skills widely used in the software
-              industry through weekly workshops and large-scale team projects.
-              Our weekly meetings are open to everyone, regardless of major or
-              experience!
+              The Software Development Club at Washington State University is a growing student
+              organization focused on developing software applications in a collaborative
+              environment that mirros real-world development teams. Our goal is to equip students
+              with relevant tools, technologies, and skills widely used in the software industry
+              through weekly workshops and large-scale team projects. Our weekly meetings are open
+              to everyone, regardless of major or experience!
             </p>
           </div>
 

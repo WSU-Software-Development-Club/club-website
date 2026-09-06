@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/ui/Navbar";
 import ClubFooter from "@/components/ui/ClubFooter";
 
+import type { EventRow } from "../../api/_lib/queries";
 interface Event {
   id?: number;
   title: string;
@@ -12,7 +13,7 @@ interface Event {
   start_time: string;
   end_time: string;
   location: string;
-  details_url?: string;
+  details_url?: string | null;
   className?: string;
 }
 
@@ -33,10 +34,8 @@ export default function Events() {
   }, []);
 
   const today = new Date(); // get the current date to sort out our future and past events
-  const upcomingEvents =
-    events?.filter((event) => new Date(event.date) >= today) || [];
-  const pastEvents =
-    events?.filter((event) => new Date(event.date) < today) || [];
+  const upcomingEvents = events?.filter((event) => new Date(event.date) >= today) || [];
+  const pastEvents = events?.filter((event) => new Date(event.date) < today) || [];
 
   return (
     <div>
@@ -45,13 +44,10 @@ export default function Events() {
 
       <main className="flex-grow mt-27">
         <section className="text-center container mx-auto max-w-3xl">
-          <h2 className="text-5xl font-bold text-crimson mb-4">
-            Events Calendar
-          </h2>
+          <h2 className="text-5xl font-bold text-crimson mb-4">Events Calendar</h2>
           <p className="text-xl">
-            Stay up to date with all SDC events. From technical workshops to
-            industry speakers, never miss out on an opportunity to develop your
-            skills!
+            Stay up to date with all SDC events. From technical workshops to industry speakers,
+            never miss out on an opportunity to develop your skills!
           </p>
         </section>
 
@@ -67,9 +63,7 @@ export default function Events() {
                 {/* Upcoming Events */}
                 <Card className="mt-12">
                   <CardHeader className="text-center mb-0">
-                    <CardTitle className="text-3xl font-bold">
-                      Upcoming Events
-                    </CardTitle>
+                    <CardTitle className="text-3xl font-bold">Upcoming Events</CardTitle>
                   </CardHeader>
                   <CardContent>
                     {upcomingEvents?.map((event, row) => (
@@ -89,9 +83,7 @@ export default function Events() {
                 {/* Past Events */}
                 <Card className="mt-12 bg-gray-100">
                   <CardHeader className="text-center">
-                    <CardTitle className="text-3xl font-bold">
-                      Past Events
-                    </CardTitle>
+                    <CardTitle className="text-3xl font-bold">Past Events</CardTitle>
                   </CardHeader>
                   <CardContent>
                     {pastEvents?.map((event, row) => (
@@ -119,15 +111,7 @@ export default function Events() {
   );
 }
 
-function EventTile({
-  title,
-  date,
-  start_time,
-  end_time,
-  location,
-  details_url,
-  className,
-}: Event) {
+function EventTile({ title, date, start_time, end_time, location, details_url, className }: Event) {
   return (
     <Card
       className={cn(
@@ -168,9 +152,9 @@ async function FetchEvents() {
   try {
     const res = await fetch("/api/events");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const result = await res.json();
+    const result: EventRow[] = await res.json();
 
-    const formattedData: Event[] = result.map((row: any) => ({
+    const formattedData: Event[] = result.map((row) => ({
       id: row.event_id,
       title: row.title,
       date: FormatDate(row.event_date),

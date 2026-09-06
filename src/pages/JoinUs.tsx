@@ -12,57 +12,38 @@ export default function JoinUs() {
           <div className="w-full max-w-6xl">
             <Card className="max-w-6xl mb-4 shadow-md">
               <CardContent>
-                <h1 className="text-2xl font-bold mb-4 text-black80">
-                  {" "}
-                  What do we do?{" "}
-                </h1>
+                <h1 className="text-2xl font-bold mb-4 text-black80"> What do we do? </h1>
                 <ul className="text-lg text-black80 pl-16 list-disc">
                   <li>
                     <strong>Team projects: </strong>
-                    Develop large-scale,semester-long software projects. We
-                    offer a range of project difficulties so members of all
-                    skill levels can contribute to projects that match their
-                    interests and skill levels.
+                    Develop large-scale,semester-long software projects. We offer a range of project
+                    difficulties so members of all skill levels can contribute to projects that
+                    match their interests and skill levels.
                   </li>
                   <li>
                     <strong>Workshops & demos: </strong>
-                    Host weekly workshop sessions that allow members to learn
-                    about and gain hands-on experience with industry tools and
-                    technologies that may not typically be covered in class.
+                    Host weekly workshop sessions that allow members to learn about and gain
+                    hands-on experience with industry tools and technologies that may not typically
+                    be covered in class.
                   </li>
                   <li>
                     <strong>Project showcases: </strong>
-                    End of semester presentations in which completed projects
-                    are showcased to the club and invited guests.
+                    End of semester presentations in which completed projects are showcased to the
+                    club and invited guests.
                   </li>
                 </ul>
 
-                <h1 className="text-2xl font-bold m-4 text-black80">
-                  {" "}
-                  Why Join?{" "}
-                </h1>
+                <h1 className="text-2xl font-bold m-4 text-black80"> Why Join? </h1>
                 <ul className="text-lg text-black80 pl-16 list-disc">
+                  <li>Learn and grow as a software developer through hands-on experience.</li>
+                  <li>Build a portfolio with large scale, real-world projects.</li>
                   <li>
-                    Learn and grow as a software developer through hands-on
-                    experience.
+                    Collaborate with fellow members and learn professional development workflows.
                   </li>
-                  <li>
-                    Build a portfolio with large scale, real-world projects.
-                  </li>
-                  <li>
-                    Collaborate with fellow members and learn professional
-                    development workflows.
-                  </li>
-                  <li>
-                    Network with fellow students and alumni in the software
-                    community.
-                  </li>
+                  <li>Network with fellow students and alumni in the software community.</li>
                 </ul>
 
-                <h1 className="text-2xl font-bold m-4 text-black80">
-                  {" "}
-                  Meeting Information{" "}
-                </h1>
+                <h1 className="text-2xl font-bold m-4 text-black80"> Meeting Information </h1>
                 <ul className="text-lg text-black80 pl-16 list-disc">
                   <li>
                     <strong>When: </strong>
@@ -70,8 +51,8 @@ export default function JoinUs() {
                   </li>
                   <li>
                     <strong>Where: </strong>
-                    Meetings are usually held in Spark 212 but locations may
-                    change so stay updated for changes
+                    Meetings are usually held in Spark 212 but locations may change so stay updated
+                    for changes
                   </li>
                   <li>
                     <strong>What: </strong>
@@ -88,20 +69,16 @@ export default function JoinUs() {
                     >
                       Discord
                     </a>{" "}
-                    for weekly announcements regarding meeting locations and
-                    format.
+                    for weekly announcements regarding meeting locations and format.
                   </li>
                 </ul>
 
-                <h1 className="text-2xl font-bold m-4 text-black80">
-                  {" "}
-                  Who Can Join?{" "}
-                </h1>
+                <h1 className="text-2xl font-bold m-4 text-black80"> Who Can Join? </h1>
                 <ul className="text-lg text-black80 pl-16 list-disc">
                   <li>
                     <strong>All skill levels are welcome: </strong>
-                    From beginner to experienced developers, there is a always
-                    place for you to contribute!
+                    From beginner to experienced developers, there is a always place for you to
+                    contribute!
                   </li>
                   <li>
                     <strong>Any major: </strong>
@@ -117,22 +94,14 @@ export default function JoinUs() {
 
             <Card className="max-w-6xl shadow-md">
               <CardContent className="text-center">
-                <h2 className="text-4xl font-bold text-crimson mb-4">
-                  Ready to Join Us?
-                </h2>
+                <h2 className="text-4xl font-bold text-crimson mb-4">Ready to Join Us?</h2>
                 <p className="text-lg text-black80">
-                  Become part of one of WSU's newest programming clubs. Connect
-                  with like-minded students and grow as a software developer by
-                  working on large-scale projects!
+                  Become part of one of WSU's newest programming clubs. Connect with like-minded
+                  students and grow as a software developer by working on large-scale projects!
                 </p>
                 <button
                   className="bg-black90 text-white hover:bg-black80 px-4 py-2 rounded-md cursor-pointer mt-4"
-                  onClick={() =>
-                    window.open(
-                      "https://discord.com/invite/ZmcwBPUj9B",
-                      "_blank",
-                    )
-                  }
+                  onClick={() => window.open("https://discord.com/invite/ZmcwBPUj9B", "_blank")}
                 >
                   Join our Discord
                 </button>
