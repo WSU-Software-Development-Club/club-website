@@ -38,7 +38,7 @@ export default function Events() {
   const pastEvents = events?.filter((event) => new Date(event.date) < today) || [];
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       {/* Navigation bar at top */}
       <Navbar />
 

@@ -33,7 +33,7 @@ export default function Team() {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
 
       <main className="flex-grow mt-25">

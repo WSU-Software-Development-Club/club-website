@@ -11,7 +11,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       {/* Navigation bar at top */}
       <Navbar />
 
