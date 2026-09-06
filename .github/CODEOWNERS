@@ -1,3 +1,5 @@
 # Default owners for everything in the repo.
 # See https://docs.github.com/articles/about-code-owners
-* @IsaiahD9402 @BerkeleyConkling
+
+# Note: This should be updated with a maintainers org team rather than indivudal users for ease of maintenance 
+* @IsaiahD9402 @BerkeleyConkling @rwpace0 @AndrewN4675 
