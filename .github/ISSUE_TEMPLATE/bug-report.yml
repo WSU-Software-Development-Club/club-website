@@ -1,0 +1,24 @@
+name: Bug Report
+description: Something on the site is broken
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Include the page URL and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      value: |
+        1.
+        2.
+        3.
+  - type: input
+    id: env
+    attributes:
+      label: Browser and device
+      placeholder: Chrome 128 on macOS

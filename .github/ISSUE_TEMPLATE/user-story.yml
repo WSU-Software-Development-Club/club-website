@@ -1,0 +1,39 @@
+name: User Story
+description: Propose a feature as a user story
+labels: [enhancement]
+body:
+  - type: input
+    id: role
+    attributes:
+      label: As a
+      placeholder: prospective member
+    validations:
+      required: true
+  - type: input
+    id: need
+    attributes:
+      label: I need
+      placeholder: to see upcoming events on the home page
+    validations:
+      required: true
+  - type: input
+    id: benefit
+    attributes:
+      label: So that
+      placeholder: I know when to show up
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details and assumptions
+      description: Document what you know.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      render: gherkin
+      value: |
+        Given [some context]
+        When [certain action is taken]
+        Then [the outcome of action is observed]

@@ -4,7 +4,7 @@ The official club website for the Software Development Club at Washington State 
 
 ## Tech Stack
 
-- **React.js** - UI Llibrary
+- **React.js** - UI library
 - **TypeScript** - Type safety
 - **Vite** - Build tool and dev server
 - **Tailwind CSS** - Styling
@@ -14,65 +14,47 @@ The official club website for the Software Development Club at Washington State 
 
 ## Prerequisites
 
-- **Node.js 22.13.1**
+- **Node.js 22** (22.13 or newer, see `.nvmrc` and the `engines` field in `package.json`)
   - If you have [nvm](https://github.com/nvm-sh/nvm) installed, run `nvm use` to automatically switch to the correct version
+
+## Project Structure
+
+```
+├── api/           # Vercel serverless functions (production API routes)
+│   └── _lib/      # Shared SQL queries + handler wrapper used by api/ and server.ts
+├── server.ts      # Local Express server exposing the same routes for local dev
+├── src/
+│   ├── pages/     # Route-level page components
+│   ├── components/ui/
+│   └── assets/
+├── public/
+└── .github/       # CI workflow, Dependabot, CODEOWNERS, PR and issue templates
+```
+
+### Adding an API route
+
+1. Add the query function and its row type to `api/_lib/queries.ts`.
+2. Create `api/<name>.ts` that exports `jsonHandler(yourQuery)`.
+3. Register the same path in `server.ts` with `route("/api/<name>", yourQuery)`.
+
+Both environments share the query, so the SQL only lives in one place.
+
+## Quick Start
+
+```bash
+git clone https://github.com/WSU-Software-Development-Club/club-website.git
+cd club-website
+npm install
+cp .env.example .env   # then fill in DATABASE_URL
+npm run dev
+```
+
+`npm run dev` runs the Vite dev server and the local Express API (`server.ts`) together.
 
 ## Design Guidelines
 
 This project follows the [WSU brand guidelines](https://brand.wsu.edu/) for colors and visual elements.
 
-## How to Contribute
+## Contributing
 
-1. **Clone the Repository**
-   - Each team member should start by cloning the repository to their local machine:
-     ```bash
-     git clone https://github.com/WSU-Software-Development-Club/club-website.git
-     cd club-website
-     ```
-2. **Install All Dependencies**
-   After navigating into the cloned repository, run:
-
-   ```bash
-   npm install
-   ```
-
-   What This Does:
-
-   Reads package.json: Fetches all the dependencies and devDependencies listed.
-   Creates node_modules Folder: Downloads and installs all necessary packages locally.
-   Ensures Consistency: Everyone has the same versions of packages, preventing "it works on my machine" issues.
-
-3. **Start The Development Server**
-   Once all dependencies are installed, start the development server to verify everything is set up correctly:
-   ```bash
-   npm run dev
-   ```
-   or
-   ```bash
-   npm start
-   ```
-4. **Checkout a Branch:**
-   - Ensure you're working on one of your own branches or a branch that you've been assigned to.
-   - To switch to a branch:
-     ```bash
-     git checkout <branch-name>
-     ```
-
-5. **Make Changes:**
-   - Implement your changes or updates within the checked-out branch.
-
-6. **Commit Your Changes:**
-   - Stage the changes and commit them with a meaningful message:
-     ```bash
-     git add .
-     git commit -m "Your descriptive commit message"
-     ```
-
-7. **Push the Branch to Origin:**
-   - Push the branch with your changes to the remote repository:
-     ```bash
-     git push origin <branch-name>
-     ```
-
-8. **Create a Pull Request:**
-   - Go to GitHub and create a pull request from your branch to the appropriate base branch.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the branch and pull request workflow.
