@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TypingEffect from "./TypedEffect";
 import softwareDevelopmentLogo from "../../assets/software-development-logo.png";
 
-const navItems = ["Projects", "Events", "Team", "Join Us"];
+const navItems = [
+  { label: "Projects", path: "/projects" },
+  { label: "Events", path: "/events" },
+  { label: "Team", path: "/team" },
+  { label: "Join Us", path: "/join-us" },
+];
 
 // Complete functionality of navbar with desktop / mobile views and functionality
 export default function Navbar() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
-
-  const nav = useNavigate();
-  const location = useLocation();
 
   // move to top of screen and prevent scrolling if hamburger is opened
   useEffect(() => {
@@ -25,19 +27,12 @@ export default function Navbar() {
     };
   }, [hamburgerOpen]);
 
-  // returns to the homepage if they click the club logo on a different page
-  const returnHome = () => {
-    if (location.pathname !== "/") {
-      nav("/");
-    }
-  };
-
   return (
     <>
       {/* Navigation Bar that is always at te top of the screen */}
       <header className="fixed top-0 left-0 w-full z-50 bg-white border-b py-4 px-6 shadow">
         <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={returnHome}>
+          <Link to="/" className="flex items-center gap-2" aria-label="Home">
             <img
               src={softwareDevelopmentLogo}
               style={{ width: "40px", height: "auto" }}
@@ -46,30 +41,28 @@ export default function Navbar() {
             <div className="font-bold">
               <TypingEffect text="Software Development Club at WSU"></TypingEffect>
             </div>
-            {/* <p className='font-bold'></p> This can replace the animated text */}
-          </div>
+          </Link>
 
           {/* Default list of navigational links on wider displays */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <button
-                key={item}
+              <Link
+                key={item.path}
+                to={item.path}
                 className="font-medium text-black80 hover:text-crimson transition-colors cursor-pointer"
-                onClick={() => {
-                  if (item === "home") {
-                    nav("/"); // Navigate to home
-                  } else {
-                    nav(`/${item}`); // Navigate to the appropriate page
-                  }
-                }}
               >
-                {item}
-              </button>
+                {item.label}
+              </Link>
             ))}
           </nav>
 
           {/* hamburger menu on smaller screens */}
-          <button className="md:hidden p-2" onClick={() => setHamburgerOpen(!hamburgerOpen)}>
+          <button
+            className="md:hidden p-2"
+            aria-label={hamburgerOpen ? "Close menu" : "Open menu"}
+            aria-expanded={hamburgerOpen}
+            onClick={() => setHamburgerOpen(!hamburgerOpen)}
+          >
             {!hamburgerOpen ? (
               <>
                 {" "}
@@ -97,19 +90,14 @@ export default function Navbar() {
       >
         <div className="w-full py-16 flex flex-col items-center space-y-8 text-xl">
           {navItems.map((item) => (
-            <button
+            <Link
               className="text-2xl font-bold text-center text-black80 hover:text-crimson transition-colors w-full cursor-pointer"
-              key={item}
-              onClick={() => {
-                if (item === "home") {
-                  nav("/"); // Navigate to home
-                } else {
-                  nav(`/${item}`); // Navigate to the appropriate page
-                }
-              }}
+              key={item.path}
+              to={item.path}
+              onClick={() => setHamburgerOpen(false)}
             >
-              {item}
-            </button> // Close the menu
+              {item.label}
+            </Link>
           ))}
         </div>
       </div>
