@@ -14,7 +14,7 @@ The official club website for the Software Development Club at Washington State 
 
 ## Prerequisites
 
-- **Node.js 22.13.1**
+- **Node.js 22** (22.13 or newer, see `.nvmrc` and the `engines` field in `package.json`)
   - If you have [nvm](https://github.com/nvm-sh/nvm) installed, run `nvm use` to automatically switch to the correct version
 
 ## Project Structure
