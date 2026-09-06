@@ -21,13 +21,23 @@ The official club website for the Software Development Club at Washington State 
 
 ```
 ├── api/           # Vercel serverless functions (production API routes)
-├── server.ts      # Local Express server mirroring the api/ routes for local dev
+│   └── _lib/      # Shared SQL queries + handler wrapper used by api/ and server.ts
+├── server.ts      # Local Express server exposing the same routes for local dev
 ├── src/
 │   ├── pages/     # Route-level page components
 │   ├── components/ui/
 │   └── assets/
-└── public/
+├── public/
+└── .github/       # CI workflow, Dependabot, CODEOWNERS, PR and issue templates
 ```
+
+### Adding an API route
+
+1. Add the query function and its row type to `api/_lib/queries.ts`.
+2. Create `api/<name>.ts` that exports `jsonHandler(yourQuery)`.
+3. Register the same path in `server.ts` with `route("/api/<name>", yourQuery)`.
+
+Both environments share the query, so the SQL only lives in one place.
 
 ## Quick Start
 
