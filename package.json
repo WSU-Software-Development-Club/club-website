@@ -5,11 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"tsx watch server.ts\" \"vite\"",
+    "dev:api": "tsx watch server.ts",
+    "dev:web": "vite",
     "build": "tsc -b && vite build",
+    "typecheck": "tsc -b",
     "lint": "eslint .",
-    "preview": "vite preview",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
