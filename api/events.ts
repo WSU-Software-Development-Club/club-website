@@ -1,4 +1,11 @@
-import { jsonHandler } from "./_lib/handler.js";
-import { getEvents } from "./_lib/queries.js";
+import { vercelResource } from "./_lib/handler.js";
+import { createEvent, deleteEvent, getEvents, updateEvent } from "./_lib/queries.js";
+import { parseEventInput } from "./_lib/validate.js";
 
-export default jsonHandler(getEvents);
+export default vercelResource({
+  list: getEvents,
+  parse: parseEventInput,
+  create: createEvent,
+  update: updateEvent,
+  remove: deleteEvent,
+});
