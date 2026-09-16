@@ -171,7 +171,7 @@ async function FetchEvents() {
   }
 }
 
-function FormatTime(inputTime: string) {
+function FormatTime(inputTime: string | null) {
   if (!inputTime) return ""; // handle the NULL from the database for possible end times
 
   const [hours, minutes] = inputTime.split(":");
