@@ -9,7 +9,7 @@ import type { EventRow } from "../../api/_lib/queries";
 interface Event {
   id?: number;
   title: string;
-  date: string;
+  date: string; // YYYY-MM-DD, formatted for display only at render time
   start_time: string;
   end_time: string;
   location: string;
@@ -33,9 +33,9 @@ export default function Events() {
     fetchEvents();
   }, []);
 
-  const today = new Date(); // get the current date to sort out our future and past events
-  const upcomingEvents = events?.filter((event) => new Date(event.date) >= today) || [];
-  const pastEvents = events?.filter((event) => new Date(event.date) < today) || [];
+  const today = PacificToday(); // members are in PST, so "upcoming" is judged in Pacific time
+  const upcomingEvents = events?.filter((event) => event.date >= today) || [];
+  const pastEvents = events?.filter((event) => event.date < today) || [];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -126,7 +126,7 @@ function EventTile({ title, date, start_time, end_time, location, details_url, c
 
         <div className="flex items-center gap-2">
           <CiCalendar />
-          <span className="text-black80">{date}</span>
+          <span className="text-black80">{FormatDate(date)}</span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ async function FetchEvents() {
     const formattedData: Event[] = result.map((row) => ({
       id: row.event_id,
       title: row.title,
-      date: FormatDate(row.event_date),
+      date: row.event_date,
       start_time: FormatTime(row.start_time),
       end_time: FormatTime(row.end_time),
       location: row.event_loc,
@@ -183,10 +183,23 @@ function FormatTime(inputTime: string | null) {
 }
 
 function FormatDate(inputDate: string) {
-  return new Date(inputDate).toLocaleDateString("en-US", {
-    // format date into 'Month,DD,YYYY'
+  // Built from parts: new Date("YYYY-MM-DD") parses as UTC midnight, which lands on the
+  // previous day for anyone west of Greenwich and shows the wrong date in PST.
+  const [year, month, day] = inputDate.split("-").map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+    // format date into 'Month DD, YYYY'
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+}
+
+function PacificToday() {
+  // en-CA renders as YYYY-MM-DD, which sorts and compares directly against event_date.
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Los_Angeles",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
 }
