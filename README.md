@@ -32,6 +32,12 @@ The official club website for the Software Development Club at Washington State 
 └── .github/       # CI workflow, Dependabot, CODEOWNERS, PR and issue templates
 ```
 
+## API Endpoints
+
+| Path                 | Method | Description                                                                                  | Project                                                                         |
+| -------------------- | ------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `/api/gamedev/games` | `GET`  | Returns metadata for games uploaded by the Game Development Club @ WSU for the game launcher | [Game Launcher](https://github.com/WSU-Software-Development-Club/game-launcher) |
+
 ### Adding an API route
 
 1. Add the query functions and the row type to `api/_lib/queries.ts`.
