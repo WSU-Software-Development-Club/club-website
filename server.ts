@@ -12,6 +12,7 @@ import {
   getEvents,
   getProjects,
   getTeam,
+  listGames,
   updateEvent,
   updateProject,
   updateTeamMember,
@@ -46,6 +47,10 @@ function route<TInput>(path: string, ops: ResourceOps<TInput>) {
   });
 }
 
+const notAllowed = () => {
+  throw new Error("Method not allowed");
+};
+
 route("/api/projects", {
   list: getProjects,
   parse: parseProjectInput,
@@ -68,6 +73,14 @@ route("/api/events", {
   create: createEvent,
   update: updateEvent,
   remove: deleteEvent,
+});
+
+route("/api/gamedev/games", {
+  list: listGames,
+  parse: notAllowed,
+  create: notAllowed,
+  update: notAllowed,
+  remove: notAllowed,
 });
 
 app.all("/api/login", async (req, res) => {
