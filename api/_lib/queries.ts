@@ -49,6 +49,12 @@ export interface EventRow {
   details_url: string | null;
 }
 
+export interface Game {
+  id: number;
+  title: string;
+  itchio_url: string;
+}
+
 /* -------------------------------------------------------------------------- */
 /* Reads                                                                       */
 /* -------------------------------------------------------------------------- */
@@ -96,6 +102,11 @@ export async function getEvents(): Promise<EventRow[]> {
     FROM Events
     ORDER BY Events.event_date DESC
   `) as EventRow[];
+}
+
+export async function listGames(): Promise<Game[]> {
+  const sql = getSql();
+  return (await sql`SELECT * FROM gamedev_games`) as Game[];
 }
 
 /* -------------------------------------------------------------------------- */
